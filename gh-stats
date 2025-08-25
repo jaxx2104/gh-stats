@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+# Get the directory of this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Run the Deno script with appropriate permissions
+exec deno run \
+  --allow-run=gh,git \
+  --allow-env \
+  --allow-write=. \
+  --allow-read=. \
+  "${SCRIPT_DIR}/main.ts" "$@"

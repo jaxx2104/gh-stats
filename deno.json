@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "imports": {
+    "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",
+    "@cliffy/table": "jsr:@cliffy/table@1.0.0-rc.7",
+    "@std/fmt/colors": "jsr:@std/fmt@1.0.3/colors"
+  },
+  "tasks": {
+    "dev": "deno run --allow-run=gh,git --allow-env --allow-write=. --allow-read=. main.ts",
+    "test": "deno test --allow-run=gh,git --allow-env",
+    "fmt": "deno fmt",
+    "lint": "deno lint"
+  }
+}
