@@ -4,10 +4,9 @@ set -e
 # Get the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Run the Deno script with appropriate permissions
-exec deno run \
-  --allow-run=gh,git \
-  --allow-env \
-  --allow-write=. \
-  --allow-read=. \
-  "${SCRIPT_DIR}/main.ts" "$@"
+# Install dependencies on first run (e.g. right after `gh extension install`)
+if [ ! -d "${SCRIPT_DIR}/node_modules" ]; then
+  bun install --cwd "${SCRIPT_DIR}" --frozen-lockfile --production --silent
+fi
+
+exec bun "${SCRIPT_DIR}/main.ts" "$@"

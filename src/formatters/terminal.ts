@@ -1,29 +1,28 @@
-import { Repository, Contributor, Language } from "../types.ts";
+import type { Contributor, Language, Repository } from "../types.ts";
 import {
-  formatNumber,
-  formatDate,
-  formatDuration,
-  calculateDaysAgo,
-} from "../utils/format.ts";
-import {
-  bold,
-  cyan,
-  yellow,
-  green,
-  blue,
-  magenta,
-  dim,
-  highlight,
-  muted,
-} from "../utils/colors.ts";
-import {
-  createLanguageChart,
-  createHorizontalBar,
   createActivitySparkline,
+  createLanguageChart,
   createTable,
 } from "../utils/charts.ts";
+import {
+  blue,
+  bold,
+  cyan,
+  dim,
+  green,
+  highlight,
+  magenta,
+  muted,
+  yellow,
+} from "../utils/colors.ts";
+import {
+  calculateDaysAgo,
+  formatDate,
+  formatDuration,
+  formatNumber,
+} from "../utils/format.ts";
 
-export function displayRepositoryHeader(repo: Repository): void {
+export function displayRepositoryHeader(_repo: Repository): void {
   console.log();
   console.log(bold(cyan("📊 Repository Statistics")));
   console.log(dim("─".repeat(50)));
