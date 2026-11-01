@@ -1,4 +1,4 @@
-import { Repository, Contributor, Language } from "../types.ts";
+import type { Contributor, Language, Repository } from "../types.ts";
 
 export function generateCsvReport(
   repo: Repository,

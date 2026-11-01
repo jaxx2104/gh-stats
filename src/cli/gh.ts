@@ -1,5 +1,5 @@
+import type { Contributor, Language, Repository } from "../types.ts";
 import { runCommand } from "./repo.ts";
-import { Contributor, Language, Repository } from "../types.ts";
 
 export async function ghApi<T>(endpoint: string): Promise<T> {
   const result = await runCommand("gh", ["api", endpoint]);
@@ -105,14 +105,15 @@ export async function getRecentActivity(
     ghApi<Array<unknown>>(
       `/repos/${repo}/issues?since=${since}&state=all&per_page=100`,
     ),
-    ghApi<Array<unknown>>(`/repos/${repo}/pulls?state=all&per_page=100`),
+    ghApi<Array<{ created_at: string }>>(
+      `/repos/${repo}/pulls?state=all&per_page=100`,
+    ),
   ]);
 
   return {
     commits: commits.length,
     issues: issues.length,
-    pullRequests: prs.filter(
-      (pr: any) => new Date(pr.created_at) > new Date(since),
-    ).length,
+    pullRequests: prs.filter((pr) => new Date(pr.created_at) > new Date(since))
+      .length,
   };
 }

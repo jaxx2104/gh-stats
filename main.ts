@@ -1,17 +1,17 @@
 import { Command } from "@cliffy/command";
-import { StatsOptions } from "./src/types.ts";
-import { showStats } from "./src/commands/stats.ts";
 import {
-  getRepositoryInfo,
   getContributors,
   getLanguages,
   getRecentActivity,
+  getRepositoryInfo,
 } from "./src/cli/gh.ts";
 import { getCurrentRepo } from "./src/cli/repo.ts";
-import { generateMarkdownReport } from "./src/formatters/markdown.ts";
-import { generateJsonReport } from "./src/formatters/json.ts";
+import { showStats } from "./src/commands/stats.ts";
 import { generateCsvReport } from "./src/formatters/csv.ts";
+import { generateJsonReport } from "./src/formatters/json.ts";
+import { generateMarkdownReport } from "./src/formatters/markdown.ts";
 import { displayError, displaySuccess } from "./src/formatters/terminal.ts";
+import type { StatsOptions } from "./src/types.ts";
 
 async function main() {
   const { options, args } = await new Command()
@@ -41,7 +41,7 @@ async function main() {
       "Export to markdown",
       "gh stats --all --export markdown --output stats.md",
     )
-    .parse(Deno.args);
+    .parse(process.argv.slice(2));
 
   try {
     const repo = args[0] || (await getCurrentRepo());
@@ -67,7 +67,7 @@ async function main() {
     displayError(
       error instanceof Error ? error.message : "Unknown error occurred",
     );
-    Deno.exit(1);
+    process.exit(1);
   }
 }
 
@@ -111,7 +111,7 @@ async function exportReport(
   }
 
   const filename = outputFile || `${repo.replace("/", "-")}-stats${extension}`;
-  await Deno.writeTextFile(filename, report);
+  await Bun.write(filename, report);
   displaySuccess(`Report exported to ${filename}`);
 }
 

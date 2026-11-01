@@ -1,22 +1,21 @@
-import { CommandResult } from "../types.ts";
+import type { CommandResult } from "../types.ts";
 
 export async function runCommand(
   cmd: string,
   args: string[],
 ): Promise<CommandResult> {
-  const command = new Deno.Command(cmd, {
-    args,
-    stdout: "piped",
-    stderr: "piped",
+  const proc = Bun.spawn([cmd, ...args], {
+    stdout: "pipe",
+    stderr: "pipe",
   });
 
-  const { code, stdout, stderr } = await command.output();
+  const [stdout, stderr, code] = await Promise.all([
+    new Response(proc.stdout).text(),
+    new Response(proc.stderr).text(),
+    proc.exited,
+  ]);
 
-  return {
-    stdout: new TextDecoder().decode(stdout),
-    stderr: new TextDecoder().decode(stderr),
-    code,
-  };
+  return { stdout, stderr, code };
 }
 
 export async function getCurrentRepo(): Promise<string> {

@@ -1,21 +1,21 @@
-import { Repository, StatsOptions } from "../types.ts";
 import {
-  getRepositoryInfo,
   getContributors,
   getLanguages,
   getRecentActivity,
+  getRepositoryInfo,
 } from "../cli/gh.ts";
 import { getCurrentRepo } from "../cli/repo.ts";
 import {
+  displayContributors,
+  displayError,
+  displayKeyMetrics,
+  displayLanguages,
+  displayLoading,
+  displayRecentActivity,
   displayRepositoryHeader,
   displayRepositoryInfo,
-  displayKeyMetrics,
-  displayContributors,
-  displayLanguages,
-  displayRecentActivity,
-  displayLoading,
-  displayError,
 } from "../formatters/terminal.ts";
+import type { StatsOptions } from "../types.ts";
 
 export async function showStats(options: StatsOptions): Promise<void> {
   try {
@@ -50,6 +50,6 @@ export async function showStats(options: StatsOptions): Promise<void> {
     displayError(
       error instanceof Error ? error.message : "Unknown error occurred",
     );
-    Deno.exit(1);
+    process.exit(1);
   }
 }

@@ -3,7 +3,7 @@
 A GitHub CLI extension that provides beautiful repository statistics right in your terminal.
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
-![Deno](https://img.shields.io/badge/deno-1.38+-green)
+![Bun](https://img.shields.io/badge/bun-1.4+-black)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 
 ## ✨ Features
@@ -14,11 +14,12 @@ A GitHub CLI extension that provides beautiful repository statistics right in yo
 - 📊 **Terminal Graphs** - Beautiful ASCII charts and graphs directly in your terminal
 - 📄 **Export Reports** - Generate reports in Markdown, JSON, or CSV formats
 - 🎨 **Colorful Output** - Enhanced terminal experience with syntax highlighting
-- 🚀 **Fast & Efficient** - Built with Deno and TypeScript for optimal performance
+- 🚀 **Fast & Efficient** - Built with Bun and TypeScript for optimal performance
 
 ## 📊 Output Examples
 
 ### Repository Statistics
+
 ```
 📊 Fetching statistics for owner/repo...
 
@@ -49,6 +50,7 @@ HTML            █ 2.4%
 ```
 
 ### Contributor Statistics
+
 ```
 👥 Top Contributors
 ──────────────────────────────────────────────────
@@ -56,4 +58,30 @@ HTML            █ 2.4%
 1 │ alice     │ Alice Smith │ 523          │ ▇▆▇█▇▆▅▇█  │ 100.0%
 2 │ bob       │ Bob Jones   │ 342          │ ▅▆▄▅▇▄▃▅▆  │ 65.4%
 3 │ charlie   │ Charlie Lee │ 198          │ ▃▄▃▅▄▂▃▄▃  │ 37.9%
+```
+
+## 📦 Installation
+
+gh-stats runs on [Bun](https://bun.sh). Make sure `bun` (1.4 or later) is on your `PATH`, then install the extension:
+
+```sh
+gh extension install jaxx2104/gh-stats
+gh stats owner/repo
+```
+
+Dependencies are installed automatically with `bun install --production` on the first run.
+
+## 🛠️ Development
+
+The Bun version is managed with [mise](https://mise.jdx.dev).
+
+```sh
+mise install
+bun install
+
+bun run dev -- owner/repo --all   # run the CLI
+bun test                          # run tests (bun:test)
+bun run typecheck                 # tsc --noEmit
+bun run check                     # Biome lint + format check
+bun run fmt                       # apply Biome formatting
 ```

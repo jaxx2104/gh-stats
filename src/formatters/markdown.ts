@@ -1,9 +1,9 @@
-import { Repository, Contributor, Language } from "../types.ts";
+import type { Contributor, Language, Repository } from "../types.ts";
 import {
-  formatNumber,
+  calculateDaysAgo,
   formatDate,
   formatDuration,
-  calculateDaysAgo,
+  formatNumber,
 } from "../utils/format.ts";
 
 export function generateMarkdownReport(

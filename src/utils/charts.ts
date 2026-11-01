@@ -1,5 +1,5 @@
+import { bold, dim, getLanguageColor } from "./colors.ts";
 import { formatPercentage } from "./format.ts";
-import { getLanguageColor, dim, bold } from "./colors.ts";
 
 export function createBarChart(
   value: number,
@@ -54,7 +54,7 @@ export function createLanguageChart(
   return lines;
 }
 
-export function createActivitySparkline(values: number[], height = 4): string {
+export function createActivitySparkline(values: number[], _height = 4): string {
   if (values.length === 0) return "";
 
   const max = Math.max(...values);
